@@ -22,6 +22,10 @@ optional arguments:
   --suspicion SUSPICION   Investigate for Suspicious IPs
   --payload PAYLOAD       Payload Investigation for specific protocols, eg. get,post
 ```
+### example
+```python 
+python network_analyzer.py --pcap pcap_file_name --packet 1 --data_frame src,dst,sport,dport --stats num,graph --suspicion true --payload get,post
+```
 
 ### References 
 [vnetman's blog](https://vnetman.github.io/pcap/python/pyshark/scapy/libpcap/2018/10/25/analyzing-packet-captures-with-python-part-1.html)
