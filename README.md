@@ -28,6 +28,5 @@ python network_analyzer.py --pcap pcap_file_name --packet 1 --data_frame src,dst
 ```
 
 ### References 
-[vnetman's blog](https://vnetman.github.io/pcap/python/pyshark/scapy/libpcap/2018/10/25/analyzing-packet-captures-with-python-part-1.html)
-
+[vnetman's blog](https://vnetman.github.io/pcap/python/pyshark/scapy/libpcap/2018/10/25/analyzing-packet-captures-with-python-part-1.html) |
 [Ronald Eddings Article](https://medium.com/hackervalleystudio/learning-packet-analysis-with-data-science-5356a3340d4e)
