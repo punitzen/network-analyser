@@ -15,7 +15,7 @@ def run_network_analyser(file_name):
 
     time.sleep(3)
 
-    os.system("python network_analyzer.py --pcap {} --packet 1 --data_frame src,dst,sport,dport --stats num,graph --suspicion true --payload get,post".format(file_name))
+    os.system("python network_analyser.py --pcap {} --packet 1 --data_frame src,dst,sport,dport --stats num,graph --suspicion true --payload get,post".format(file_name))
 
 def main(file_name):
     t0 = time.perf_counter()
@@ -35,7 +35,7 @@ def main(file_name):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Network Analyzer Scheduler')
+    parser = argparse.ArgumentParser(description='Network Analyser Scheduler')
     parser.add_argument('--pcap', metavar='<pcap file name>',
                         help='pcap file to parse', required=True)
     args = parser.parse_args()

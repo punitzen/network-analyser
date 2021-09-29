@@ -301,7 +301,7 @@ def payload_investigation(file_name, payload):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Network Analyzer')
+    parser = argparse.ArgumentParser(description='Network Analyser')
     parser.add_argument('--pcap', metavar='<pcap file name>',
                         help='pcap file to parse', required=True)
     parser.add_argument('--client', help='clients IP and port', required=False)

@@ -1,15 +1,15 @@
-## Network Analyzer using python and wireshark
+## Network Analyser using python and wireshark
 python script to analyse `PCAP` files, able to extract information about specific IP addresses, guess suspicious IP addresses, able to extract and identify malicious payload and give statistics about top IP addresses, used `scapy` to parse pcap file and `pandas` to create data frames for statistics
 
 ### Usage
 ```python
-~$ python .\network_analyzer.py --help
+~$ python .\network_analyser.py --help
 
-usage: network_analyzer.py [-h] --pcap <pcap file name> [--client CLIENT] [--server SERVER] [--packet PACKET] 
+usage: network_analyser.py [-h] --pcap <pcap file name> [--client CLIENT] [--server SERVER] [--packet PACKET] 
                            [--data_frame DATA_FRAME] [--stats STATS] [--suspicion SUSPICION] 
                            [--payload PAYLOAD]
 
-Network Analyzer
+Network analyser
 
 optional arguments:
   -h, --help              show this help message and exit
@@ -25,13 +25,13 @@ optional arguments:
 ### example
 #### Analyser
 ```python 
-python network_analyzer.py --pcap pcap_file_name --packet 1 --data_frame src,dst,sport,dport --stats num,graph --suspicion true --payload get,post
+python network_analyser.py --pcap pcap_file_name --packet 1 --data_frame src,dst,sport,dport --stats num,graph --suspicion true --payload get,post
 ```
 #### Scheduler
 ```python 
 python scheduler.py --pcap pcap_file_name 
 ```
 
-### References 
+#### References 
 [vnetman's blog](https://vnetman.github.io/pcap/python/pyshark/scapy/libpcap/2018/10/25/analyzing-packet-captures-with-python-part-1.html) |
 [Ronald Eddings Article](https://medium.com/hackervalleystudio/learning-packet-analysis-with-data-science-5356a3340d4e)
