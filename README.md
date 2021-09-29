@@ -23,8 +23,13 @@ optional arguments:
   --payload PAYLOAD       Payload Investigation for specific protocols, eg. get,post
 ```
 ### example
+#### Analyser
 ```python 
 python network_analyzer.py --pcap pcap_file_name --packet 1 --data_frame src,dst,sport,dport --stats num,graph --suspicion true --payload get,post
+```
+#### Scheduler
+```python 
+python main.py --pcap pcap_file_name 
 ```
 
 ### References 
