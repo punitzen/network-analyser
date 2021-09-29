@@ -35,7 +35,7 @@ def main(file_name):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Network Analyzer')
+    parser = argparse.ArgumentParser(description='Network Analyzer Scheduler')
     parser.add_argument('--pcap', metavar='<pcap file name>',
                         help='pcap file to parse', required=True)
     args = parser.parse_args()
