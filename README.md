@@ -29,7 +29,7 @@ python network_analyzer.py --pcap pcap_file_name --packet 1 --data_frame src,dst
 ```
 #### Scheduler
 ```python 
-python main.py --pcap pcap_file_name 
+python scheduler.py --pcap pcap_file_name 
 ```
 
 ### References 
