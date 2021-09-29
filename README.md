@@ -9,7 +9,7 @@ usage: network_analyser.py [-h] --pcap <pcap file name> [--client CLIENT] [--ser
                            [--data_frame DATA_FRAME] [--stats STATS] [--suspicion SUSPICION] 
                            [--payload PAYLOAD]
 
-Network analyser
+Network Analyser
 
 optional arguments:
   -h, --help              show this help message and exit
@@ -22,7 +22,7 @@ optional arguments:
   --suspicion SUSPICION   Investigate for Suspicious IPs
   --payload PAYLOAD       Payload Investigation for specific protocols, eg. get,post
 ```
-### example
+### Example
 #### Analyser
 ```python 
 python network_analyser.py --pcap pcap_file_name --packet 1 --data_frame src,dst,sport,dport --stats num,graph --suspicion true --payload get,post
