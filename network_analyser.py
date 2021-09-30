@@ -327,19 +327,19 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Network Analyser')
     parser.add_argument('--pcap', metavar='<pcap file name>',
                         help='pcap file to parse', required=True)
-    parser.add_argument('--client', help='clients IP and port', required=False)
-    parser.add_argument('--server', help='server IP and port', required=False)
-    parser.add_argument('--packet', help='Packet Number', required=False)
+    parser.add_argument('--client', metavar='<client IP:port>', help='clients IP and port', required=False)
+    parser.add_argument('--server', metavar='<server IP:port>', help='server IP and port', required=False)
+    parser.add_argument('--packet', metavar='<1>', help='Packet Number', required=False)
     parser.add_argument(
-        '--data_frame', help='All IP Addresses and Ports, eg. --data_frame src,dst', required=False)
+        '--data_frame', metavar='<src,dst,sport,dport>', help='All IP Addresses and Ports', required=False)
     parser.add_argument(
-        '--stats', help='Shows Statistics for given pcap file numerical or graphical, eg. --stats num,graph', required=False)
+        '--stats', metavar='<num,graph>', help='Shows Statistics for given pcap file numerical or graphical', required=False)
     parser.add_argument(
-        '--suspicion', help='Investigate for Suspicious IPs', required=False)
+        '--suspicion', metavar='<true>', help='Investigate for Suspicious IPs', required=False)
     parser.add_argument(
-        '--payload', help='Payload Investigation for specific protocols, eg. --payload get,post', required=False)
+        '--payload', metavar='<get,post>', help='Payload Investigation for specific protocols', required=False)
     parser.add_argument(
-        '--ping_flood', help='Detect ping flood attack, add server ip, eg. --ping_flood server IP', required=False)
+        '--ping_flood', metavar='<server IP>', help='Detect ping flood attack, add server ip', required=False)
 
     args = parser.parse_args()
 
