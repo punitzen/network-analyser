@@ -110,7 +110,7 @@ def dataframe_pcap(file_name, frames):
     df = pd.DataFrame(columns=dataframe_fields)
 
     print(colored('\n[+] ', 'green') +
-          'Proccessing for each packets in {}...'.format(file_name))
+          'Proccessing for each packets in ' + colored(file_name, 'yellow') + '...')
 
     i = 1
 
@@ -124,7 +124,7 @@ def dataframe_pcap(file_name, frames):
 
         if i == 1:
             print(colored('[+] ', 'green') +
-                  'Proccessing for each fields in {}...'.format(file_name))
+                  'Proccessing for each fields in ' + colored(file_name, 'yellow') + '...')
             print("[+] ", end="")
         i = i + 1
 
