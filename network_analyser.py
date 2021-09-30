@@ -8,7 +8,7 @@ import pandas as pd
 from prettytable import PrettyTable
 from scapy.all import *
 from scapy.layers import http
-from scapy.layers.inet import IP, TCP
+from scapy.layers.inet import ICMP, IP, TCP
 from scapy.layers.l2 import Ether
 from scapy.utils import RawPcapReader
 from termcolor import colored
@@ -195,13 +195,13 @@ def statistics():
 
     frequent_address = df['src'].describe()['top']
 
-    print(colored("\n[+]", 'yellow') + " Who is Top Address Speaking to:",
+    print(colored("\n[+]", 'yellow') + " Who is Top Address Speaking to:\n",
           colored(df[df['src'] == frequent_address]['dst'].unique(), 'yellow'))
 
-    print(colored("\n[+]", 'green') + " Who is the top address speaking to (Destination Ports)",
+    print(colored("\n[+]", 'green') + " Who is the top address speaking to (Destination Ports)\n",
           colored(df[df['src'] == frequent_address]['dport'].unique(), 'green'))
 
-    print(colored("\n[+]", 'yellow') + " Who is the top address speaking to (Source Ports)",
+    print(colored("\n[+]", 'yellow') + " Who is the top address speaking to (Source Ports)\n",
           colored(df[df['src'] == frequent_address]['sport'].unique(), 'yellow'))
 
 
@@ -251,6 +251,29 @@ def ip_suspicion():
     global suspicious_df
     suspicious_df = frequent_address_df[frequent_address_df['dst']
                                         == suspicious_ip]
+
+
+def ping_flood_detection(file_name, server_ip):
+    packets = rdpcap(file_name)
+    icmp = 0
+    dos_ip = []
+    src_dst_ip = ""
+
+    for packet in packets:
+        if ICMP in packet:
+            ip_layer = packet.getlayer('IP').fields
+            if ip_layer['src'] == server_ip:
+                src_dst_ip = ip_layer['dst']
+
+            if ip_layer['src'] != server_ip and ip_layer['src'] != src_dst_ip:
+                dos_ip.insert(0, ip_layer['src'])
+                icmp += 1
+
+    if icmp > 1000:
+        print(colored("\n[+] Ping Flood (DOS) attack detected", 'red'))
+        print(colored("[+] IPs Associated:", 'yellow'), list(set(dos_ip)))
+    else:
+        print(colored("\n[+] Ping Flood (DOS) attack not detected", 'green'))
 
 
 def payload_investigation(file_name, payload):
@@ -310,11 +333,13 @@ if __name__ == '__main__':
     parser.add_argument(
         '--data_frame', help='All IP Addresses and Ports, eg. --data_frame src,dst', required=False)
     parser.add_argument(
-        '--stats', help='Shows Statistics for given pcap file numerical or graphical, eg. num,graph', required=False)
+        '--stats', help='Shows Statistics for given pcap file numerical or graphical, eg. --stats num,graph', required=False)
     parser.add_argument(
         '--suspicion', help='Investigate for Suspicious IPs', required=False)
     parser.add_argument(
-        '--payload', help='Payload Investigation for specific protocols, eg. get,post', required=False)
+        '--payload', help='Payload Investigation for specific protocols, eg. --payload get,post', required=False)
+    parser.add_argument(
+        '--ping_flood', help='Detect ping flood attack, add server ip, eg. --ping_flood server IP', required=False)
 
     args = parser.parse_args()
 
@@ -326,6 +351,7 @@ if __name__ == '__main__':
     stats = args.stats
     suspicion = args.suspicion
     payload = args.payload
+    server_ip = args.ping_flood
 
     if not os.path.isfile(file_name):
         print('"{}" does not exist'.format(file_name), file=sys.stderr)
@@ -360,6 +386,9 @@ if __name__ == '__main__':
 
     if suspicion is not None:
         ip_suspicion()
+
+    if server_ip is not None:
+        ping_flood_detection(file_name, server_ip)
 
     if payload is not None:
         payload_investigation(file_name, payload)

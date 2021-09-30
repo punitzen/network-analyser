@@ -5,27 +5,28 @@ python script to analyse `PCAP` files, able to extract information about specifi
 ```python
 ~$ python .\network_analyser.py --help
 
-usage: network_analyser.py [-h] --pcap <pcap file name> [--client CLIENT] [--server SERVER] [--packet PACKET] 
+usage: network_analyser.py [-h] --pcap <pcap file name> [--client CLIENT] [--server SERVER] [--packet PACKET]
                            [--data_frame DATA_FRAME] [--stats STATS] [--suspicion SUSPICION] 
-                           [--payload PAYLOAD]
+                           [--payload PAYLOAD] [--ping_flood PING_FLOOD]
 
 Network Analyser
 
 optional arguments:
-  -h, --help              show this help message and exit
-  --pcap <pcap file name> pcap file to parse
-  --client CLIENT         clients IP and port
-  --server SERVER         server IP and port
-  --packet PACKET         Packet Number
-  --data_frame DATA_FRAME All IP Addresses and Ports, eg. --data_frame src,dst
-  --stats STATS           Shows Statistics for given pcap file numerical or graphical, eg. num,graph
-  --suspicion SUSPICION   Investigate for Suspicious IPs
-  --payload PAYLOAD       Payload Investigation for specific protocols, eg. get,post
+  -h, --help               show this help message and exit
+  --pcap <pcap file name>  pcap file to parse
+  --client CLIENT          clients IP and port
+  --server SERVER          server IP and port
+  --packet PACKET          Packet Number
+  --data_frame DATA_FRAME  All IP Addresses and Ports, eg. --data_frame src,dst
+  --stats STATS            Shows Statistics for given pcap file numerical or graphical, eg. --stats num,graph
+  --suspicion SUSPICION    Investigate for Suspicious IPs
+  --payload PAYLOAD        Payload Investigation for specific protocols, eg. --payload get,post
+  --ping_flood PING_FLOOD  Detect ping flood attack, add server ip, eg. --ping_flood 192.168.0.1
 ```
 ### Example
 #### Analyser
 ```python 
-python network_analyser.py --pcap pcap_file_name --packet 1 --data_frame src,dst,sport,dport --stats num,graph --suspicion true --payload get,post
+python network_analyser.py --pcap pcap_file_name --packet 1 --data_frame src,dst,sport,dport --stats num,graph --suspicion true --payload get,post --ping_flood server_IP
 ```
 #### Scheduler
 ```python 
