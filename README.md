@@ -26,11 +26,11 @@ optional arguments:
 ### Example
 #### Analyser
 ```python 
-python network_analyser.py --pcap pcap_file_name --packet 1 --data_frame src,dst,sport,dport --stats num,graph --suspicion true --payload get,post --ping_flood server_IP
+python network_analyser.py --pcap <pcap_file_name> --packet 1 --data_frame src,dst,sport,dport --stats num,graph --suspicion true --payload get,post --ping_flood <server IP>
 ```
 #### Scheduler
 ```python 
-python scheduler.py --pcap pcap_file_name 
+python scheduler.py --pcap <pcap_file_name> --server_ip <server IP>
 ```
 
 #### References 
