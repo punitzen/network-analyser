@@ -21,7 +21,7 @@ optional arguments:
   --stats STATS            Shows Statistics for given pcap file numerical or graphical, eg. --stats num,graph
   --suspicion SUSPICION    Investigate for Suspicious IPs
   --payload PAYLOAD        Payload Investigation for specific protocols, eg. --payload get,post
-  --ping_flood PING_FLOOD  Detect ping flood attack, add server ip, eg. --ping_flood 192.168.0.1
+  --ping_flood PING_FLOOD  Detect ping flood attack, add server ip, eg. --ping_flood server_IP
 ```
 ### Example
 #### Analyser
