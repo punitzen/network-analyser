@@ -1,5 +1,5 @@
 ## Network Analyser using python and wireshark
-python script to analyse `PCAP` files, able to extract information about specific IP addresses, guess suspicious IP addresses, able to extract and identify malicious payload and give statistics about top IP addresses, used `scapy` to parse pcap file and `pandas` to create data frames for statistics
+python script to analyse `PCAP` files, able to extract information about specific IP addresses, guess suspicious IP addresses, able to extract and identify malicious payload and give statistics about top IP addresses, detect ping flood(DOS) attack, used `scapy` to parse pcap file and `pandas` to create data frames for statistics
 
 ### Usage
 ```python
