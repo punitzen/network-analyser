@@ -337,7 +337,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--suspicion', metavar='<true>', help='Investigate for Suspicious IPs', required=False)
     parser.add_argument(
-        '--payload', metavar='<get,post>', help='Payload Investigation for specific protocols', required=False)
+        '--payload', metavar='<get,post>', help='Payload Investigation for specific protocols, detect reverse shell', required=False)
     parser.add_argument(
         '--ping_flood', metavar='<server IP>', help='Detect ping flood attack, add server ip', required=False)
 
