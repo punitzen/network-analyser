@@ -21,7 +21,7 @@ optional arguments:
   --data_frame <src,dst,sport,dport> All IP Addresses and Ports
   --stats <num,graph>                Shows Statistics for given pcap file numerical or graphical
   --suspicion <true>                 Investigate for Suspicious IPs
-  --payload <get,post>               Payload Investigation for specific protocols
+  --payload <get,post>               Payload Investigation for specific protocols, detect reverse shell
   --ping_flood <server IP>           Detect ping flood attack, add server ip
 ```
 
