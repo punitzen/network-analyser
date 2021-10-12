@@ -294,10 +294,10 @@ def payload_investigation(file_name, payload):
             if packet.getlayer('Raw') is not None:
                 raw_payloads[str(packet.getlayer('Raw'))] = ip_layer['src']
 
-            if protocol == 'POST' or protocol == 'post':
+            if protocol == 'POST':
                 if http_layer['Method'] == b'POST':
                     suspicious_ip[ip_layer['src']] = http_layer['Path']
-            elif protocol == 'GET' or protocol == 'get':
+            elif protocol == 'GET':
                 if http_layer['Method'] == b'GET':
                     suspicious_ip[ip_layer['src']] = http_layer['Path']
 
