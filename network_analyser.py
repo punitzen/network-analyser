@@ -305,7 +305,7 @@ def payload_investigation(file_name, payload):
             print(
                 "\n[+] Found IPs making {} Request, You might wanna take a look at it!".format(protocol))
 
-            if protocol == 'POST' or protocol == 'post':
+            if protocol == 'POST':
                 print(colored("[+] Might be a Payload...", 'yellow'))
 
             for sus_ip in suspicious_ip:
