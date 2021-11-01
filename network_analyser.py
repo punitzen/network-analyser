@@ -3,12 +3,13 @@ import binascii
 import os
 import string
 import sys
+
 import matplotlib.pyplot as plt
 import pandas as pd
 from prettytable import PrettyTable
 from scapy.all import *
 from scapy.layers import http
-from scapy.layers.inet import ICMP, IP, TCP
+from scapy.layers.inet import IP, TCP
 from scapy.layers.l2 import Ether
 from scapy.utils import RawPcapReader
 from termcolor import colored
@@ -253,29 +254,6 @@ def ip_suspicion():
                                         == suspicious_ip]
 
 
-def ping_flood_detection(file_name, server_ip):
-    packets = rdpcap(file_name)
-    icmp = 0
-    dos_ip = []
-    src_dst_ip = ""
-
-    for packet in packets:
-        if ICMP in packet:
-            ip_layer = packet.getlayer('IP').fields
-            if ip_layer['src'] == server_ip:
-                src_dst_ip = ip_layer['dst']
-
-            if ip_layer['src'] != server_ip and ip_layer['src'] != src_dst_ip:
-                dos_ip.insert(0, ip_layer['src'])
-                icmp += 1
-
-    if icmp > 1000:
-        print(colored("\n[+] Ping Flood (DOS) attack detected", 'red'))
-        print(colored("[+] IPs Associated:", 'yellow'), list(set(dos_ip)))
-    else:
-        print(colored("\n[+] Ping Flood (DOS) attack not detected", 'green'))
-
-
 def payload_investigation(file_name, payload):
     packets = rdpcap(file_name)
 
@@ -327,9 +305,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Network Analyser')
     parser.add_argument('--pcap', metavar='<pcap file name>',
                         help='pcap file to parse', required=True)
-    parser.add_argument('--client', metavar='<client IP:port>', help='clients IP and port', required=False)
-    parser.add_argument('--server', metavar='<server IP:port>', help='server IP and port', required=False)
-    parser.add_argument('--packet', metavar='<1>', help='Packet Number', required=False)
+    parser.add_argument('--client', metavar='<client IP:port>',
+                        help='clients IP and port', required=False)
+    parser.add_argument('--server', metavar='<server IP:port>',
+                        help='server IP and port', required=False)
+    parser.add_argument('--packet', metavar='<1>',
+                        help='Packet Number', required=False)
     parser.add_argument(
         '--data_frame', metavar='<src,dst,sport,dport>', help='All IP Addresses and Ports', required=False)
     parser.add_argument(
@@ -338,8 +319,6 @@ if __name__ == '__main__':
         '--suspicion', metavar='<true>', help='Investigate for Suspicious IPs', required=False)
     parser.add_argument(
         '--payload', metavar='<get,post>', help='Payload Investigation for specific protocols, detect reverse shell', required=False)
-    parser.add_argument(
-        '--ping_flood', metavar='<server IP>', help='Detect ping flood attack, add server ip', required=False)
 
     args = parser.parse_args()
 
@@ -351,7 +330,6 @@ if __name__ == '__main__':
     stats = args.stats
     suspicion = args.suspicion
     payload = args.payload
-    server_ip = args.ping_flood
 
     if not os.path.isfile(file_name):
         print('"{}" does not exist'.format(file_name), file=sys.stderr)
@@ -386,9 +364,6 @@ if __name__ == '__main__':
 
     if suspicion is not None:
         ip_suspicion()
-
-    if server_ip is not None:
-        ping_flood_detection(file_name, server_ip)
 
     if payload is not None:
         payload_investigation(file_name, payload)

@@ -1,24 +1,24 @@
 import argparse
-import os, sys
-import time
 import datetime
+import os
+import sys
+import time
 from datetime import timezone
 
 FREQ = 0.1
 CYCLETIME = 1/FREQ
 
+
 def run_network_analyser(file_name, server_ip):
     print(" [+] Running Network Analyser")
-    
+
     os.system(
         "tshark -T fields -e frame.time -e data.data -w {} -F pcap -c 3000".format(file_name))
 
     time.sleep(3)
 
-    if server_ip is not None:
-        os.system("python network_analyser.py --pcap {} --packet 1 --data_frame src,dst,sport,dport --stats num,graph --suspicion true --payload get,post --ping_flood {}".format(file_name, server_ip))
-    else:
-        os.system("python network_analyser.py --pcap {} --packet 1 --data_frame src,dst,sport,dport --stats num,graph --suspicion true --payload get,post".format(file_name))
+    os.system("python network_analyser.py --pcap {} --packet 1 --data_frame src,dst,sport,dport --stats num,graph --suspicion true --payload get,post".format(file_name))
+
 
 def main(file_name, server_ip):
     t0 = time.perf_counter()
@@ -32,7 +32,7 @@ def main(file_name, server_ip):
             time.sleep(target_time - elapsed_time)
 
         milliseconds_since_epoch = datetime.datetime.now(timezone.utc)
-        print('\n',milliseconds_since_epoch)
+        print('\n', milliseconds_since_epoch)
         run_network_analyser(file_name, server_ip)
         time_counter += CYCLETIME
 
@@ -41,7 +41,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Network Analyser Scheduler')
     parser.add_argument('--pcap', metavar='<pcap file name>',
                         help='pcap file to parse', required=True)
-    parser.add_argument('--server_ip', help='server ip to check for ping flood', required=False)
+    parser.add_argument('--server_ip', help='server ip', required=False)
 
     args = parser.parse_args()
 
