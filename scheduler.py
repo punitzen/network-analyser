@@ -17,7 +17,7 @@ def run_network_analyser(file_name, server_ip):
 
     time.sleep(3)
 
-    os.system("python network_analyser.py --pcap {} --packet 1 --data_frame src,dst,sport,dport --stats num,graph --suspicion true --payload get,post".format(file_name))
+    os.system("python network_analyser.py --pcap {} --packet 1 --data_frame src,dst,sport,dport --stats num,graph --suspicion true --payload get,post --cmd true".format(file_name))
 
 
 def main(file_name, server_ip):
