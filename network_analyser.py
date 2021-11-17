@@ -17,6 +17,9 @@ from termcolor import colored
 tcp_payloads = ["nc -e /bin/sh", "bash -i >& /dev/tcp", "perl -e 'use Socket;$i=", "python -c 'import socket,os,pty;s=socket.socket", "ruby -rsocket -e'f=TCPSocket.open",
                 "echo 'package main;import'os/exec';import", "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i", "f (function_exists('pcntl_fork')) {// Fork and have the parent process exit $pid = pcntl_fork();"]
 
+command_injection_list = ["cd", "ls", "id",
+                          "dir", "sysinfo", "nc", "netstat", "pwd"]
+
 
 def process_pcap(file_name, client, server):
     print(colored('\n[+] Opening', 'green'), '{}...'.format(file_name))
@@ -301,6 +304,26 @@ def payload_investigation(file_name, payload):
                 print(colored(cur_payload, 'red') + '\n')
 
 
+def command_injection(file_name):
+    packets = rdpcap(file_name)
+
+    raw_payload = {}
+
+    for packet in packets:
+        if packet.haslayer('TCP'):
+            ip_layer = packet.getlayer('IP').fields
+            if packet.getlayer('Raw') is not None:
+                raw_payload[ip_layer['src']] = packet.getlayer('Raw')
+
+    for cmd_inj in command_injection_list:
+        for ip in raw_payload.keys():
+            if cmd_inj in str(raw_payload[ip]):
+                print(colored(
+                    "\n[+]", 'red'), "Command Injection Detected from IP:", colored(ip, 'yellow'))
+                print(colored(
+                    "[+]", 'red'), "Command Extracted from Raw Payload:", colored(raw_payload[ip], 'red'))
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Network Analyser')
     parser.add_argument('--pcap', metavar='<pcap file name>',
@@ -319,6 +342,8 @@ if __name__ == '__main__':
         '--suspicion', metavar='<true>', help='Investigate for Suspicious IPs', required=False)
     parser.add_argument(
         '--payload', metavar='<get,post>', help='Payload Investigation for specific protocols, detect reverse shell', required=False)
+    parser.add_argument(
+        '--cmd', metavar='command injection', help='Check raw payloads for Command Injection', required=False)
 
     args = parser.parse_args()
 
@@ -330,6 +355,7 @@ if __name__ == '__main__':
     stats = args.stats
     suspicion = args.suspicion
     payload = args.payload
+    cmd = args.cmd
 
     if not os.path.isfile(file_name):
         print('"{}" does not exist'.format(file_name), file=sys.stderr)
@@ -367,3 +393,6 @@ if __name__ == '__main__':
 
     if payload is not None:
         payload_investigation(file_name, payload)
+
+    if cmd is not None:
+        command_injection(file_name)
