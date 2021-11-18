@@ -8,7 +8,7 @@ python script to analyse `PCAP` files, able to extract information about specifi
 usage: network_analyser.py [-h] --pcap <pcap file name> [--client <client IP:port>] 
                            [--server <server IP:port>] [--packet <packet number>] 
                            [--data_frame <src,dst,sport,dport>] [--stats <num,graph>]
-                           [--suspicion <true>] [--payload <get,post>] [--cmd command injection]
+                           [--suspicion <true>] [--payload <get,post>] [--cmd <command injection>]
 
 Network Analyser
 
@@ -22,7 +22,7 @@ optional arguments:
   --stats <num,graph>                Shows Statistics for given pcap file numerical or graphical
   --suspicion <true>                 Investigate for Suspicious IPs
   --payload <get,post>               Payload Investigation for specific protocols, detect reverse shell
-  --cmd command injection            Check raw payloads for Command Injection
+  --cmd <command injection>            Check raw payloads for Command Injection
 ```
 
 ### Example

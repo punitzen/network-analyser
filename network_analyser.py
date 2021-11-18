@@ -343,7 +343,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--payload', metavar='<get,post>', help='Payload Investigation for specific protocols, detect reverse shell', required=False)
     parser.add_argument(
-        '--cmd', metavar='command injection', help='Check raw payloads for Command Injection', required=False)
+        '--cmd', metavar='<command injection>', help='Check raw payloads for Command Injection', required=False)
 
     args = parser.parse_args()
 
