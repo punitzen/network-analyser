@@ -22,7 +22,7 @@ optional arguments:
   --stats <num,graph>                Shows Statistics for given pcap file numerical or graphical
   --suspicion <true>                 Investigate for Suspicious IPs
   --payload <get,post>               Payload Investigation for specific protocols, detect reverse shell
-  --cmd <command injection>            Check raw payloads for Command Injection
+  --cmd <command injection>          Check raw payloads for Command Injection
 ```
 
 ### Example
